@@ -21,20 +21,29 @@
         <CardBody>
             <Container>
                 <Row Gutter="(32,16)">
+
+
+
                     <Column ColumnSize="ColumnSize.Is4.Is4.WithOffset" class="align-center">
-                        <FieldLabel><NumericEdit @bind-Value="Model.Total" Decimals="2" placeholder="Amount" class="amount" /></FieldLabel>
+
+
+                        <Validations Mode="ValidationMode.Auto" Model="Model">
+                            <Validation>
+                                <FieldLabel>
+                                    <NumericEdit @bind-Value="Model.Total" Decimals="2" placeholder="Amount" class="amount">
+                                        <Feedback>
+                                            <ValidationError />
+                                        </Feedback>
+                                    </NumericEdit>
+                                </FieldLabel>
+                            </Validation>
+                        </Validations>
+
+                        
                     </Column>
                 </Row>
 
-            <Row>
-                <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
-                    <Alert Color="Color.Info" Visible="@((Model.Total??0) < 1)">
-                        <AlertDescription>Sadly we can't accept donations less then £1</AlertDescription>
-                    </Alert>
-                </Column>
-            </Row>
-
-             
+                <Divider></Divider>
 
             <Row Gutter="(32,16)">
                 <Column ColumnSize="ColumnSize.Is8.Is2.WithOffset">
@@ -50,7 +59,7 @@
                     <div>
                     @if (Model.Anon)
                     {
-                        <span>Your donation will still appear on the home page, but Your name will not be displayed</span>
+                        <FieldHelp>Your donation will still appear on the home page, but your name will not be displayed</FieldHelp>
                     }
                     </div>
                 </Column>
@@ -64,10 +73,10 @@
                             <TextEdit @bind-Text="Model.Email" placeholder="Email Address" Role="TextRole.Email">
                                 <Feedback>
                                     <ValidationError />
+                                    <ValidationSuccess>We'll send the password to the video to this address, so make sure it's correct!</ValidationSuccess>
                                 </Feedback>
                             </TextEdit>
                         </Validation>
-                        <FieldHelp>We'll send the password to the video to this address, so make sure it's correct!</FieldHelp>
                     </Validations>
                 </Column>
             </Row>
@@ -126,15 +135,15 @@
 
     public class DonationEntry
     {
-        [Required(ErrorMessage = null)]
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage = "We can't accept donations of less than £1")]
+        [Range(1, int.MaxValue, ErrorMessage = "We can't accept donations of less than £1")]
         public decimal? Total { get; set; }
 
 
         public string Comment { get; set; }
         public string Name { get; set; }
-        [Required(ErrorMessage = null)]
-        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Required(ErrorMessage = "We need to know where to send the password")]
+        [EmailAddress(ErrorMessage = "We don't recognise this address...")]
         public string Email { get; set; }
 
         public bool Anon { get; set; }

@@ -30,11 +30,11 @@ namespace FTH
                 .AddFontAwesomeIcons();
 
             builder.RootComponents.Add<App>("#app");
-#if DEBUG
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:7071/api/") });
-#else
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://lemon-water-0f7de7b03.azurestaticapps.net/api/") });            
-#endif
+
+            var rootUrl = (builder.Configuration["BaseAddress"] ?? builder.HostEnvironment.BaseAddress).TrimEnd('/');
+
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri($"{rootUrl}/api/") });
+
 
 
             builder.Services.AddScoped<DonationApi>();

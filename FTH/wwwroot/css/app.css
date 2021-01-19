@@ -1,5 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-
+﻿
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -58,4 +57,17 @@ form.donate-form label input.amount {
 .content {
     max-width: 900px;
     margin: auto;
+}
+
+
+.loading-img {
+    background: url("https://scontent.xx.fbcdn.net/v/t1.15752-9/140229627_241073357625214_543730975047686573_n.jpg?_nc_cat=109&ccb=2&_nc_sid=58c789&_nc_ohc=Svjk_mTIL7UAX9K9zLh&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=38dece503f6fd6c07cdba266f0c9d018&oe=602E9129");
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-position: center;
 }
