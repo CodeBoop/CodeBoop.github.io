@@ -18,12 +18,12 @@ namespace DapperRepos
 
         public async Task<decimal> Total()
         {
-            return (await RunAsync<decimal>("select sum(total) from donations")).FirstOrDefault();
+            return (await RunAsync<decimal>("select coalesce(sum(total),0) from donations")).FirstOrDefault();
         }
 
         public async Task<int> Count()
         {
-            return (int)(await RunAsync<decimal>("select count(total) from donations")).FirstOrDefault();
+            return (int)(await RunAsync<decimal>("select coalesce(count(total),0) from donations")).FirstOrDefault();
         }
 
         public Task<IEnumerable<Donation>> Get()

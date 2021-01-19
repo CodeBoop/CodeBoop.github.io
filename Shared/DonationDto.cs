@@ -16,6 +16,9 @@ namespace DTOs
     {
         public static DonationDto ToDto(this Donation dom)
         {
+            if (dom == null)
+                return null;
+
             return new DonationDto()
             {
                 Comment = dom.Comment,

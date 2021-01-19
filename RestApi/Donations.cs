@@ -62,12 +62,13 @@ namespace RestApi
             var countT = DonationService.Count();
             var largestT = DonationService.GetLargest();
 
-            await Task.WhenAll(top10T, totalT, countT);
+            await Task.WhenAll(top10T, totalT, countT, largestT);
 
             var last10Donations = top10T.Result;
             var largest = largestT.Result;
 
-            last10Donations = last10Donations.Where(i => i.Id != largest.Id).ToArray();
+            if(last10Donations.Any())
+                last10Donations = last10Donations.Where(i => i.Id != largest.Id).ToArray();
 
             return new OkObjectResult(
                 new DonationSummaryDto()
