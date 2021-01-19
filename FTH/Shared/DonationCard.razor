@@ -1,0 +1,30 @@
+﻿@using DTOs
+
+
+@if (Model != null)
+{
+    <Card class="@(IsHighest?"highest":"")">
+        <CardBody>
+            @if (IsHighest)
+            {
+                <CardTitle>
+                    Current highest donation:
+                </CardTitle>
+            }
+            <CardTitle>
+                @Model.Name - @Model.Total.ToString("£#0.00")
+            </CardTitle>
+            <CardText>
+                @Model.Comment
+            </CardText>
+        </CardBody>
+    </Card>
+}
+
+
+
+@code
+{
+    [Parameter] public DonationDto Model { get; set; }
+    [Parameter] public bool IsHighest { get; set; }
+}

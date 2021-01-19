@@ -1,0 +1,52 @@
+﻿@page "/"
+@page "/What"
+@using DTOs
+@using FTH.Code
+
+<Jumbotron Margin="Margin.Is4.FromBottom.Is4.FromTop">
+    <JumbotronTitle Size="JumbotronTitleSize.Is4">A Fight for the ages!</JumbotronTitle>
+    <JumbotronSubtitle>
+        After Lockdown these two Titans have a Score to <strong>Settle</strong>
+    </JumbotronSubtitle>
+    <Divider></Divider>
+    <Paragraph>
+        <div>The salt mines fuel these two more then petty gold.</div>
+        <div>Buy your tickets to see the fight and support our carefully selected charities</div>
+    </Paragraph>
+</Jumbotron>
+
+<CardDeck  Margin="Margin.Is4.FromBottom">
+    <AnvilCard />
+    <GoatwornCard />
+</CardDeck>
+
+<CardDeck  Margin="Margin.Is4.FromBottom">
+
+    @if (Donations.Largest != null)
+    {
+        <DonationCard Model="Donations.Largest" IsHighest="true"/>
+    }
+
+    @if(Donations.Last10Donations!=null)
+    {
+        @foreach (var don in Donations.Last10Donations)
+        {
+           <DonationCard Model="don" />
+        }
+    }
+
+</CardDeck>
+
+@code
+{
+    [Inject] public DonationApi DonationApi { get; set; }
+
+    private DonationSummaryDto Donations = new DonationSummaryDto();
+
+
+    protected override Task OnInitializedAsync()
+    {
+        return DonationApi.Summary().Set(() => Donations);
+    }
+
+}

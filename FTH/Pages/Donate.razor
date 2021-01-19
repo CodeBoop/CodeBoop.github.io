@@ -1,0 +1,209 @@
+﻿@page "/Donate"
+@using System.ComponentModel.DataAnnotations
+@using FTH.Code
+
+
+<div>
+    <Card Margin="Margin.Is4.FromTop">
+        <Tabs TabPosition="TabPosition.Top" SelectedTab="@SelectedTab" Justified="true" FullWidth="true" >
+            <Items >
+                <Tab Name="donation" >Donation</Tab>
+                <Tab Name="details" Disabled="@(((Model.Total??0) < 1))">Details</Tab>
+            </Items>
+            <Content>
+                <TabPanel name="donation" >
+                    <Container>
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <Alert Color="Color.Info" Visible="true">
+                                    <AlertDescription>Please enter a donation amount, you'll be able to select how its divided between the charities in a moment:</AlertDescription>
+                                </Alert>
+                            </Column>
+                        </Row>
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is4.Is4.WithOffset" class="align-center">
+                                <FieldLabel><NumericEdit @bind-Value="Model.Total" Decimals="2" placeholder="Amount" class="amount" /></FieldLabel>
+                            </Column>
+                        </Row>
+                        <Row Gutter="(32,16)" class="@(((Model.Total??0) < 1)?"not-valid":"valid")">
+                            <Column ColumnSize="ColumnSize.Is12">
+                                <Slider @bind-Value="Model.Split" Max="1m" Min="0m" TValue="decimal" Step="0.01m" />
+                            </Column>
+                        </Row>
+
+                        <Row class="@(((Model.Total??0) < 1)?"not-valid":"valid")">
+                            <Column ColumnSize="ColumnSize.Is5" class="align-center">
+                                <FieldLabel>Path Devon<NumericEdit @bind-Value="@Model.PathDevon" Decimals="2" Min="0" Step="0.01m" /></FieldLabel>
+                            </Column>
+
+                            <Column ColumnSize="ColumnSize.Is5.Is2.WithOffset" class="align-center">
+                                <FieldLabel>St George's Crypt<NumericEdit @bind-Value="@Model.StGeorges" Decimals="2" Min="0" /></FieldLabel>
+                            </Column>
+                        </Row>
+
+                        <Row>
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <Alert Color="Color.Info" Visible="@((Model.Total??0) < 1)">
+                                    <AlertMessage>Small point</AlertMessage>
+                                    <AlertDescription>Sadly we can't accept donations less then £1.</AlertDescription>
+                                </Alert>
+                            </Column>
+                        </Row>
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <Button Clicked="@(()=>SelectedTab="details")" Block="true" Color="Color.Primary" Disabled="@((Model.Total ?? 0) < 1)">Continue</Button>
+                            </Column>
+                        </Row>
+
+                    </Container>
+                </TabPanel>
+                <TabPanel Name="details">
+                    <Container>
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <Button Clicked="@(()=>SelectedTab="donation")" Block="true" Color="Color.Light">Back</Button>
+                            </Column>
+                        </Row>
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <Alert Color="Color.Info" Visible="true">
+                                    <AlertDescription>We just need a few little bits of info off you before you can proceed</AlertDescription>
+                                </Alert>
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is8.Is2.WithOffset">
+                                <TextEdit @bind-Text="Model.Name" placeholder="Fullname" />
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is8.Is2.WithOffset">
+                                <Check @bind-Checked="Model.Anon" TValue="bool">
+                                    Anonymous donation
+                                </Check>
+                                <div>
+                                @if (Model.Anon)
+                                {
+                                    <span>Your donation will still appear on the home page, but Your name will not be displayed</span>
+                                }
+                                </div>
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is8.Is2.WithOffset">
+
+                                <Validations Mode="ValidationMode.Auto" Model="Model">
+                                    <Validation>
+                                        <TextEdit @bind-Text="Model.Email" placeholder="Email Address" Role="TextRole.Email">
+                                            <Feedback>
+                                                <ValidationError />
+                                            </Feedback>
+                                        </TextEdit>
+                                    </Validation>
+                                    <FieldHelp>We'll send the password to the video to this address, so make sure it's correct!</FieldHelp>
+                                </Validations>
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is8.Is2.WithOffset">
+                                <MemoEdit Rows="5" @bind-Text="Model.Comment" placeholder="Want to leave a comment with the donation?" />
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)">
+                            <Column ColumnSize="ColumnSize.Is12">
+                            <Check @bind-Checked="Model.AcceptTerms" TValue="bool">
+                                By checking this you accept the <Link To="Terms" Target="Target.Blank">terms and conditions </Link> of our one off donations.
+                            </Check>
+                            </Column>
+                        </Row>
+
+                        <Row Gutter="(32,16)" class="@(Model.IsValid?"valid" : "not-valid")">
+                            <Column ColumnSize="ColumnSize.Is10.Is1.WithOffset">
+                                <FieldHelp class="align-center">You can donate with Paypal even if you don't have an account.</FieldHelp>
+                                <div id="paypal-button"></div>
+                            </Column> 
+                        </Row>
+                    </Container>
+                </TabPanel>
+            </Content>
+        </Tabs>
+    </Card>
+
+</div>
+
+
+@code
+{
+
+    private static DonationEntry Model { get; set; } = new DonationEntry() {Split = 0.5m};
+    private string SelectedTab { get; set; } = "donation";
+    [Inject] private IJSRuntime JsRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+            await JsRuntime.BindPaypalButtons("#paypal-button");
+    }
+
+
+    private Task Save()
+    {
+        return Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public static Task<DonationEntry> GetDonation()
+    {
+        return Task.FromResult(Model);
+    }
+
+    public class DonationEntry
+    {
+        public decimal? Total { get; set; }
+        public decimal Split { get; set; }
+
+        public decimal StGeorges
+        {
+            get => (Total ?? 0) * Split;
+            set
+            {
+                var t = value;
+                t = Math.Min(Total ?? 0, t);
+                t = Math.Max(0, t);
+
+                Split = t / Total ?? 0.5m;
+            }
+        }
+
+        public decimal PathDevon
+        {
+            get => (Total ?? 0) - StGeorges;
+            set
+            {
+                var t = value;
+                t = Math.Min(Total ?? 0, t);
+                t = Math.Max(0, t);
+
+                Split = Total == null ? 0.5m : ((Total.Value - t) / Total.Value);
+            }
+        }
+
+        public string Comment { get; set; }
+        public string Name { get; set; }
+        [Required(ErrorMessage = "We need an email address")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; }
+
+        public bool Anon { get; set; }
+        public bool AcceptTerms { get; set; }
+
+        public bool IsValid => AcceptTerms && (Total ?? 0) > 1 && Email.IsValidEmail();
+
+    }
+
+}
