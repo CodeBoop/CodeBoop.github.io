@@ -33,7 +33,7 @@ namespace FTH
 #if DEBUG
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:7071/api/") });
 #else
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress+"/api/") });            
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://lemon-water-0f7de7b03.azurestaticapps.net/api/") });            
 #endif
 
 
