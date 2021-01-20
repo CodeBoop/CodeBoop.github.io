@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text;
 using System.Threading.Tasks;
 using DTOs;
+using Newtonsoft.Json;
+using Exception = System.Exception;
 
 namespace FTH.Code
 {
@@ -32,6 +35,12 @@ namespace FTH.Code
         public Task<DonationSummaryDto> Summary()
         {
             return Client.GetFromJsonAsync<DonationSummaryDto>("Donations/Summary");
+        }
+
+        public Task Create(DonationPromiseDto dto)
+        {
+            var httpContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+            return Client.PostAsync("Donations/Create", httpContent);
         }
 
 

@@ -42,5 +42,10 @@ namespace Domain.Services
         {
             return Repo.GetLargest();
         }
+
+        public Task Create(Donation donation)
+        {
+            return Repo.Create(donation);
+        }
     }
 }

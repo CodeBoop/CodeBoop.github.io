@@ -1,7 +1,7 @@
 ﻿
 window.blazor = {};
 
-
+window.blazor.tempDonation=null;
 
 window.blazor.bindPaypalButton = (selector) => {
 
@@ -16,6 +16,8 @@ window.blazor.bindPaypalButton = (selector) => {
                 return null;
             }
 
+            window.blazor.tempDonation = donation;
+
             return actions.order.create({
                 purchase_units: [{
                     amount: {
@@ -27,10 +29,21 @@ window.blazor.bindPaypalButton = (selector) => {
         onApprove: function(data, actions) {
             return actions.order.capture().then(function (details) {
                 // This function shows a transaction success message to your buyer.
+                var don = window.blazor.tempDonation;
 
-                var donation = DotNet.invokeMethod("FTH", "GetDonation").result;
+                try {
+                    DotNet.invokeMethod("FTH",
+                        "CreateDonation",
+                        details.id,
+                        don.name,
+                        don.anon,
+                        don.comment,
+                        don.email);
+                } catch (e) {
+                    //ignore
+                }
+                
 
-                alert('Transaction completed by ' + details.payer.name.given_name);
             });
         }
     }).render(selector);;

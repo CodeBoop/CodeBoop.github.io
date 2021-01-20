@@ -19,6 +19,12 @@ namespace RestApi
             builder.Services.AddSingleton(new ConnectionStringProvider(Environment.GetEnvironmentVariable("DefaultConnection")));
             builder.Services.AddScoped<IDonationRepository, DonationRepository>();
             builder.Services.AddScoped<IDonationService, DonationService>();
+
+            builder.Services.AddScoped<IAccessTokenRepository, AccessTokenRepository>();
+            builder.Services.AddScoped<IAccessTokenService, AccessTokenService>();
+
+            builder.Services.AddScoped<IRandom<string>, RandomWordService>();
+
         }
     }
 }

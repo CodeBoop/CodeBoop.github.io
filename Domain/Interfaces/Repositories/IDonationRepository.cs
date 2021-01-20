@@ -18,5 +18,7 @@ namespace Domain.Interfaces.Repositories
         Task<IEnumerable<Donation>> Get(int latest);
 
         Task<Donation> GetLargest();
+
+        Task Create(Donation donation);
     }
 }

@@ -30,8 +30,6 @@ namespace DapperRepos
             return cmd.Invoke(db);
         }
 
-
-
         protected Task<IEnumerable<T>> RunAsync<T>(string sql, object param = null)
         {
             return RunAsync(i => i.QueryAsync<T>(sql, param));
@@ -51,6 +49,21 @@ namespace DapperRepos
             }
 
             return result;
+        }
+
+
+        protected async Task Execute(string sql, object param)
+        {
+            await using SqlConnection con = new SqlConnection(ConnectionString);
+            try
+            {
+                await con.OpenAsync();
+                await con.ExecuteAsync(sql, param);
+            }
+            finally
+            {
+                await con.CloseAsync();
+            }
         }
 
     }

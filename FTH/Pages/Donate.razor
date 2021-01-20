@@ -1,5 +1,6 @@
 ﻿@page "/Donate"
 @using System.ComponentModel.DataAnnotations
+@using DTOs
 @using FTH.Code
 
 
@@ -107,6 +108,20 @@
 
 </div>
 
+<Modal @ref="Modal" Closing="((e)=>e.Cancel=true)">
+    <ModalBackdrop />
+    <ModalContent IsCentered="true">
+        <ModalHeader>
+            <ModalTitle>Thank you!</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
+           <div>Thank you so much for your donation.</div>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" Block="true" Type="ButtonType.Link" To="/">Close</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
 
 @code
 {
@@ -114,6 +129,16 @@
     private static DonationEntry Model { get; set; } = new DonationEntry();
     private string SelectedTab { get; set; } = "donation";
     [Inject] private IJSRuntime JsRuntime { get; set; }
+    [Inject] private DonationApi DonationApi { get; set; }
+
+    private static Action<DonationPromiseDto> CreateDonationFunc { get; set; }
+    private Modal Modal { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        CreateDonationFunc = async dto => await OnCreateDonation(dto);
+        return base.OnInitializedAsync();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -121,11 +146,27 @@
             await JsRuntime.BindPaypalButtons("#paypal-button");
     }
 
-
-    private Task Save()
+    private async Task OnCreateDonation(DonationPromiseDto promise)
     {
-        return Task.CompletedTask;
+        Modal.Show();
+        Model = new DonationEntry();
+        await DonationApi.Create(promise);
     }
+
+    [JSInvokable]
+    public static void CreateDonation(string paypalTransactionId, string name, bool anon, string comment, string email)
+    {
+        var promise = new DonationPromiseDto()
+        {
+            Name = name,
+            Anon = anon,
+            PaypalId = paypalTransactionId,
+            Comment = comment,
+            Email = email
+        };
+        CreateDonationFunc.Invoke(promise);
+    }
+
 
     [JSInvokable]
     public static Task<DonationEntry> GetDonation()
@@ -149,7 +190,7 @@
         public bool Anon { get; set; }
         public bool AcceptTerms { get; set; }
 
-        public bool IsValid => AcceptTerms && (Total ?? 0) > 1 && Email.IsValidEmail();
+        public bool IsValid => AcceptTerms && (Total ?? 0) >= 1 && Email.IsValidEmail();
 
     }
 

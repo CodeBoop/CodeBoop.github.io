@@ -15,5 +15,7 @@ namespace Domain.Interfaces.Services
 
         Task<Donation> GetLargest();
 
+        Task Create(Donation donation);
+
     }
 }

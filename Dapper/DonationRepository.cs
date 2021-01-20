@@ -40,5 +40,12 @@ namespace DapperRepos
         {
             return (await RunAsync<Donation>($"select top 1 * from Donations where Display=1 order by Total desc")).FirstOrDefault();
         }
+
+        public Task Create(Donation donation)
+        {
+            return Execute(
+                @"insert into Donations(Total, PassPhrase, Email, Firstname, Lastname, Comment, Anon, PayPayToken)
+    values(@Total, @PassPhrase, @Email, @Firstname, @Lastname, @Comment, @Anon, @PayPayToken)", donation);
+        }
     }
 }
