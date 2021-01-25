@@ -20,10 +20,14 @@
                     Donate
                 </BarLink>
             </BarItem>
-            <BarItem Disabled="true">
-                <BarLink To="/Charities" >
-                    The Charities
-                </BarLink>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle> The Charities</BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem To="https://www.stgeorgescrypt.org.uk/"  Target="Target.Blank">St. Georges Crypt</BarDropdownItem>
+                        <BarDropdownItem To="https://www.pathdevon.org/" Target="Target.Blank">Path Devon</BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
             </BarItem>
             <BarItem Disabled="true">
                 <BarLink To="/Gallery">
