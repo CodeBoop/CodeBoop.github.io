@@ -76,7 +76,7 @@ window.blazor.createEventBriteFrame = (id) => {
         iframeContainerId: id,
 
         // Optional
-        iframeContainerHeight: window.innerHeight * 0.9,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
+        iframeContainerHeight: 1455,  // Widget height in pixels. Defaults to a minimum of 425px if not provided
         onOrderComplete: exampleCallback  // Method called when an order has successfully completed
     });
 }
