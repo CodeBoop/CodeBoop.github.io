@@ -7,7 +7,7 @@ namespace DTOs
     {
         public string Name { get; set; }
         public bool Anon { get; set; }
-        public string PaypalId { get; set; }
+        public string DonationId { get; set; }
         public string Email { get; set; }
         public string Comment { get; set; }
     }

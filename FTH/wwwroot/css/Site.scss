@@ -11,3 +11,22 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
 }
+
+.event-brite-placeholder {
+    background: white;
+    height: 90vh;
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+}
+
+.event-brite-holder{
+    position:relative;
+}
+
+.event-brite-holder iframe {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}

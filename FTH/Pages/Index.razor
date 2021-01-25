@@ -22,17 +22,13 @@
 
 <CardDeck  Margin="Margin.Is4.FromBottom">
 
-    @if (Donations.Largest != null)
+    @if (Donations != null)
     {
-        <DonationCard Model="Donations.Largest" IsHighest="true"/>
-    }
-
-    @if(Donations.Last10Donations!=null)
-    {
-        @foreach (var don in Donations.Last10Donations)
+        @foreach (var don in Donations)
         {
-           <DonationCard Model="don" />
+            <DonationCard Model="don" />
         }
+
     }
 
 </CardDeck>
@@ -41,7 +37,7 @@
 {
     [Inject] public DonationApi DonationApi { get; set; }
 
-    private DonationSummaryDto Donations = new DonationSummaryDto();
+    private IEnumerable<DonationDto> Donations;
 
 
     protected override Task OnInitializedAsync()

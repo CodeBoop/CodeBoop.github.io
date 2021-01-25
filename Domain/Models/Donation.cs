@@ -19,6 +19,6 @@ namespace Domain.Models
 
         public DateTimeOffset CreatedAt { get; set; }
 
-        public string PayPayToken { get; set; }
+        public string Token { get; set; }
     }
 }

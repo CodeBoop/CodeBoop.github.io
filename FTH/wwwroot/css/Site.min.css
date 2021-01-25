@@ -1,1 +1,1 @@
-﻿body{background:#e1d38a;background-size:cover;font-family:sans-serif;text-align:center;}.main{margin-left:1rem;margin-right:1rem;}
+﻿body{background:#e1d38a;background-size:cover;font-family:sans-serif;text-align:center;}.main{margin-left:1rem;margin-right:1rem;}.event-brite-placeholder{background:#fff;height:90vh;display:block;position:absolute;width:100%;z-index:0;}.event-brite-holder{position:relative;}.event-brite-holder iframe{position:absolute;left:0;z-index:1;}

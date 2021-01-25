@@ -1,0 +1,34 @@
+﻿@page "/EventBrite"
+@using FTH.Code
+
+
+<Container Margin="Margin.Is4.FromTop">
+    <div id="eventbrite-widget-container-137912330493" class="event-brite-holder">
+        <div class="event-brite-placeholder">
+            <div style="margin-top: 180px;">
+                <Progress class="progress-xl">
+                    <ProgressBar Value="100" Max="100" Animated="true" Striped="true">
+                        Loading checkout...
+                    </ProgressBar>
+                </Progress>
+            </div>
+        </div>
+    </div>
+</Container>
+
+
+@code
+{
+
+    [Inject] private IJSRuntime JsRuntime { get; set; }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if(firstRender)
+            await JsRuntime.BindEventBriteFrame("eventbrite-widget-container-137912330493");
+    }
+
+
+}

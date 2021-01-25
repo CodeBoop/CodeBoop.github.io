@@ -150,7 +150,7 @@
     {
         Modal.Show();
         Model = new DonationEntry();
-        await DonationApi.Create(promise);
+        /*await DonationApi.Create(promise);*/
     }
 
     [JSInvokable]
@@ -160,7 +160,7 @@
         {
             Name = name,
             Anon = anon,
-            PaypalId = paypalTransactionId,
+            DonationId = paypalTransactionId,
             Comment = comment,
             Email = email
         };

@@ -14,5 +14,10 @@ namespace FTH.Code
             return js.InvokeVoidAsync("blazor.bindPaypalButton", selector);
         }
 
+        public static ValueTask BindEventBriteFrame(this IJSRuntime js, string selector)
+        {
+            return js.InvokeVoidAsync("blazor.createEventBriteFrame", selector);
+        }
+
     }
 }

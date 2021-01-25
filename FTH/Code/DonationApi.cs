@@ -17,31 +17,18 @@ namespace FTH.Code
         {
         }
 
-        public Task<decimal> Total()
+
+
+        public Task<IEnumerable<DonationDto>> Summary()
         {
-            return Client.GetFromJsonAsync<decimal>("Total");
+            return Client.GetFromJsonAsync<IEnumerable<DonationDto>>("Donations/Summary");
         }
 
-        public Task<int> Count()
-        {
-            return Client.GetFromJsonAsync<int>("Count");
-        }
-
-        public Task<IEnumerable<DonationDto>> Get()
-        {
-            return Client.GetFromJsonAsync<IEnumerable<DonationDto>>("Donations/Get");
-        }
-
-        public Task<DonationSummaryDto> Summary()
-        {
-            return Client.GetFromJsonAsync<DonationSummaryDto>("Donations/Summary");
-        }
-
-        public Task Create(DonationPromiseDto dto)
+        /*public Task Create(DonationPromiseDto dto)
         {
             var httpContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
             return Client.PostAsync("Donations/Create", httpContent);
-        }
+        }*/
 
 
     }
