@@ -19,5 +19,10 @@ namespace FTH.Code
             return js.InvokeVoidAsync("blazor.createEventBriteFrame", selector);
         }
 
+        public static ValueTask FitText(this IJSRuntime js, string selector)
+        {
+            return js.InvokeVoidAsync("blazor.fitText", selector);
+        }
+
     }
 }

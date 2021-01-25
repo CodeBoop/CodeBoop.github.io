@@ -23,3 +23,27 @@
   position: absolute;
   left: 0;
   z-index: 1; }
+
+.twitter-hashtag-button {
+  background: #1b95e0; }
+
+.facebook-hashtag-button {
+  background: #4267B2; }
+
+.flex-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.25rem; }
+
+.flex-buttons .btn {
+  margin: 0.5rem 0.25rem;
+  min-width: 300px;
+  max-width: 400px;
+  flex: 1; }
+
+.card-body .flex-buttons .btn {
+  min-width: unset; }
+
+.display-4 {
+  font-size: 9vw; }

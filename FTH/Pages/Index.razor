@@ -4,7 +4,7 @@
 @using FTH.Code
 
 <Jumbotron Margin="Margin.Is4.FromBottom.Is4.FromTop">
-    <JumbotronTitle Size="JumbotronTitleSize.Is4">A Fight for the ages!</JumbotronTitle>
+    <JumbotronTitle Size="JumbotronTitleSize.Is4">#FightForTheHomeless</JumbotronTitle>
     <JumbotronSubtitle>
         After Lockdown these two Titans have a Score to <strong>Settle</strong>
     </JumbotronSubtitle>
@@ -13,6 +13,27 @@
         <div>The salt mines fuel these two more then petty gold.</div>
         <div>Buy your tickets to see the fight and support our carefully selected charities</div>
     </Paragraph>
+    <Paragraph>
+        <div class="flex-buttons">
+        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
+                To="https://www.facebook.com/Anvil-vs-Goatworn-Fight-for-the-Homeless-103277498409609/">
+            <i class="fab fa-facebook-f"></i>
+            Find our page #FightForTheHomeless
+        </Button>
+        </div>
+        <div class="flex-buttons">
+        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="twitter-hashtag-button"
+                To="https://twitter.com/hashtag/FightForTheHomeless">
+            <i class="fab fa-twitter"></i>
+            Tweet #FightForTheHomeless
+        </Button>
+        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
+                To="https://www.facebook.com/hashtag/fightforthehomeless">
+            <i class="fab fa-facebook-f"></i>
+            Facebook #FightForTheHomeless
+        </Button>
+        </div>
+</Paragraph>
 </Jumbotron>
 
 <CardDeck  Margin="Margin.Is4.FromBottom">
@@ -35,6 +56,7 @@
 
 @code
 {
+    [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] public DonationApi DonationApi { get; set; }
 
     private IEnumerable<DonationDto> Donations;
@@ -43,6 +65,14 @@
     protected override Task OnInitializedAsync()
     {
         return DonationApi.Summary().Set(() => Donations);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+            await JsRuntime.FitText(".display-4");
     }
 
 }
