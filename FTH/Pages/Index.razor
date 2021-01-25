@@ -62,10 +62,10 @@
     private IEnumerable<DonationDto> Donations;
 
 
-    protected override Task OnInitializedAsync()
-    {
-        return DonationApi.Summary().Set(() => Donations);
-    }
+    //protected override Task OnInitializedAsync()
+    //{
+    //    return DonationApi.Summary().Set(() => Donations);
+    //}
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
