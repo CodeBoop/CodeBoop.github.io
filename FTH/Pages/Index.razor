@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/What"
+@using Domain.Models
 @using DTOs
 @using FTH.Code
 
@@ -53,20 +54,26 @@
 </Paragraph>
 </Jumbotron>
 
+   @if (Donations != null)
+   {
+       <CardDeck Margin="Margin.Is4.FromBottom">
+            <Counter From="0" To="@Donations.Count" Title="Donations" Start="@(Donations.Count!=0)"/>
+            <Counter From="0" To="@Donations.Total" Title="Raised" Format="£#0.00"  Start="@(Donations.Count!=0)" />
+        </CardDeck>
+   }
+
 <CardDeck  Margin="Margin.Is4.FromBottom">
     <AnvilCard />
     <GoatwornCard />
 </CardDeck>
 
-<CardDeck  Margin="Margin.Is4.FromBottom">
-
-    @if (Donations != null)
+<CardDeck Margin="Margin.Is4.FromBottom">
+    @if (Donations.LatestDonations != null)
     {
-        @foreach (var don in Donations)
+        @foreach (var don in Donations.LatestDonations)
         {
             <DonationCard Model="don" />
         }
-
     }
 
 </CardDeck>
@@ -76,13 +83,14 @@
     [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] public DonationApi DonationApi { get; set; }
 
-    private IEnumerable<DonationDto> Donations;
+    private DonationSummaryDto Donations { get; set; } = new DonationSummaryDto();
 
 
-    //protected override Task OnInitializedAsync()
-    //{
-    //    return DonationApi.Summary().Set(() => Donations);
-    //}
+    protected override Task OnInitializedAsync()
+    {
+        return DonationApi.Summary().Set(() => Donations);
+    }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

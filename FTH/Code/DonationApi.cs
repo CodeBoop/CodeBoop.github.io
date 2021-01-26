@@ -19,16 +19,10 @@ namespace FTH.Code
 
 
 
-        public Task<IEnumerable<DonationDto>> Summary()
+        public Task<DonationSummaryDto> Summary()
         {
-            return Client.GetFromJsonAsync<IEnumerable<DonationDto>>("Donations/Summary");
+            return Client.GetFromJsonAsync<DonationSummaryDto>("Donations/Summary");
         }
-
-        /*public Task Create(DonationPromiseDto dto)
-        {
-            var httpContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
-            return Client.PostAsync("Donations/Create", httpContent);
-        }*/
 
 
     }

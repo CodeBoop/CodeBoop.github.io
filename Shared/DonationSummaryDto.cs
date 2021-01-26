@@ -8,8 +8,7 @@ namespace DTOs
         public decimal Total { get; set; }
         public int Count { get; set; }
 
-        public IEnumerable<DonationDto> Last10Donations { get; set; }
-        public DonationDto Largest { get; set; }
+        public IEnumerable<DonationDto> LatestDonations { get; set; }
 
     }
 }

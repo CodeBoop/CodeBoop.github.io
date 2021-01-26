@@ -42,29 +42,49 @@ namespace RestApi
 
         public static IDatabase Database => Connection.GetDatabase();
 
-
-
         [FunctionName("Donations_Summary")]
         public async Task<IActionResult> Summary(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "Donations/Summary")] HttpRequest req,
             ILogger log)
         {
             // Redis usage
-            var currentData = (string)Database.StringGet("CachedOrders");
-            IEnumerable<Donation> donations = null;
-            if (currentData.IsNullOrWhiteSpace())
-            {
+            var currentData = "";// (string)Database.StringGet("CachedSummary");
 
-                var eventApi = new EventBriteApi();
-                donations = await eventApi.Orders();
-                Database.StringSet("CachedOrders", JsonConvert.SerializeObject(donations), new TimeSpan(0, 5, 0));
-            }
-            else
+            DonationSummaryDto dto = null;
+            try
             {
-                donations = JsonConvert.DeserializeObject<IEnumerable<Donation>>(currentData);
-            }
+                if (currentData.IsNullOrWhiteSpace())
+                {
 
-            return new OkObjectResult(donations);
+                    var eventApi = new EventBriteApi();
+                   // var donationsT = eventApi.Orders();
+                    var summaryT = eventApi.Summary();
+
+                  //  await Task.WhenAll(donationsT, summaryT);
+                  await summaryT;
+                    var summary = summaryT.Result;
+
+                    dto = new DonationSummaryDto()
+                    {
+                        Count = summary.Count,
+                        Total = summary.Total,
+                        //LatestDonations = donationsT.Result.ToDto()
+                    };
+
+                    Database.StringSet("CachedSummary", JsonConvert.SerializeObject(dto), new TimeSpan(0, 5, 0));
+                }
+                else
+                {
+                    dto = JsonConvert.DeserializeObject<DonationSummaryDto>(currentData);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+          
+
+            return new OkObjectResult(dto);
         }
 
     }

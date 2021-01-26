@@ -1,0 +1,73 @@
+﻿@using _Imports = Blazorise._Imports
+
+
+<Card>
+    <CardHeader>
+        <CardTitle>
+            @Title
+        </CardTitle>
+    </CardHeader>
+
+    <CardBody>
+        <CardTitle class="align-center" Alignment="TextAlignment.Center" Weight="TextWeight.Bold" Size="2">
+            <strong>@CurrentCount.ToString(Format)</strong>
+        </CardTitle>
+    </CardBody>
+</Card>
+
+
+
+@code {
+
+    [Parameter] public string Title { get; set; }
+
+    [Parameter]
+    public decimal From { get; set; } = 0;
+
+    [Parameter]
+    public decimal To { get; set; } = 0;
+
+    [Parameter]
+    public int Speed { get; set; } = 1500;
+
+    [Parameter]
+    public string Format { get; set; } = "0";
+
+    [Parameter]
+    public bool Start { get; set; } = false;
+
+    private int StepDelay { get; set; } = 100;
+    private decimal CurrentCount { get; set; } = 0;
+    private bool Started { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+
+        if(Start && !Started)
+            StartTimer();
+        else if (Start)
+            Started = true;
+
+
+        return base.OnParametersSetAsync();
+    }
+
+
+    private async void StartTimer()
+    {
+
+        var steps = Speed / StepDelay;
+        var increment = (To - From) / steps;
+        CurrentCount =From;
+
+        for (var i = 0; i <= steps; i ++)
+        {
+            CurrentCount += increment;
+            StateHasChanged();
+            await Task.Delay(StepDelay);
+        }
+        CurrentCount = To;
+        StateHasChanged();
+    }
+
+}
