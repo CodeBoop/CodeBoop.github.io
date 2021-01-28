@@ -3,7 +3,7 @@
 
 @if (Model != null)
 {
-    <Card>
+    <Card class="donation">
         <CardHeader>
             <CardTitle>
                 @FormattedTitle
@@ -24,6 +24,6 @@
     [Parameter] public DonationDto Model { get; set; }
 
 
-    private string FormattedTitle => Model.Name + (Model.Total == 0 ? "" : " - " + Model.Total.ToString("£0.00"));
+    private string FormattedTitle => Model.Name + (Model.Total.HasValue? " - " + Model.Total?.ToString("£0.00") : "" );
 
 }

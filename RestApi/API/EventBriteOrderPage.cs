@@ -31,10 +31,24 @@ namespace RestApi.API
         public string name { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
-        public string email { get; set; }
         public string status { get; set; }
         public object time_remaining { get; set; }
         public string event_id { get; set; }
+
+        public IEnumerable<Attende> attendees { get; set; }
+    }
+
+    public class Attende
+    {
+        public IEnumerable<CustomQuestion> answers { get; set; }
+    }
+
+    public class Profile
+    {
+        public string name { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string email { get; set; }
     }
 
     public class Costs
@@ -56,5 +70,12 @@ namespace RestApi.API
         public decimal ValueDecimal => ((decimal) value) / 100;
     }
 
+    public class CustomQuestion
+    {
+        public string answer { get; set; }
+        public string question { get; set; }
+        public string question_id { get; set; }
+        public int Id => int.Parse(question_id);
+    }
 
 }

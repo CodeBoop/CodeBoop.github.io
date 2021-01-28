@@ -48,44 +48,45 @@ namespace RestApi
             ILogger log)
         {
             // Redis usage
-            var currentData = "";// (string)Database.StringGet("CachedSummary");
+            var currentData = "";
+
+#if !DEBUG
+            currentData = (string)Database.StringGet("CachedSummary");
+#endif
 
             DonationSummaryDto dto = null;
-            try
-            {
-                if (currentData.IsNullOrWhiteSpace())
-                {
-
-                    var eventApi = new EventBriteApi();
-                   // var donationsT = eventApi.Orders();
-                    var summaryT = eventApi.Summary();
-
-                  //  await Task.WhenAll(donationsT, summaryT);
-                  await summaryT;
-                    var summary = summaryT.Result;
-
-                    dto = new DonationSummaryDto()
-                    {
-                        Count = summary.Count,
-                        Total = summary.Total,
-                        //LatestDonations = donationsT.Result.ToDto()
-                    };
-
-                    Database.StringSet("CachedSummary", JsonConvert.SerializeObject(dto), new TimeSpan(0, 5, 0));
-                }
-                else
-                {
-                    dto = JsonConvert.DeserializeObject<DonationSummaryDto>(currentData);
-                }
+            
+            if (currentData.IsNullOrWhiteSpace()) {
+                dto = await GetFreshSummary();
+#if !DEBUG
+                Database.StringSet("CachedSummary", JsonConvert.SerializeObject(dto), new TimeSpan(0, 5, 0));
+#endif
+            }else {
+                dto = JsonConvert.DeserializeObject<DonationSummaryDto>(currentData);
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
-          
+         
 
             return new OkObjectResult(dto);
         }
+
+        private async Task<DonationSummaryDto> GetFreshSummary()
+        {
+            var eventApi = new EventBriteApi();
+            var donationsT = eventApi.Orders();
+            var summaryT = eventApi.Summary();
+
+            await Task.WhenAll(donationsT, summaryT);
+            var summary = summaryT.Result;
+
+            return new DonationSummaryDto()
+            {
+                Count = summary.Count,
+                Total = summary.Total,
+                LatestDonations = donationsT.Result.ToDto()
+            };
+        }
+
+
 
     }
 }

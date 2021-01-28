@@ -53,3 +53,7 @@
 
 .jumbotron {
   padding-bottom: 1rem; }
+
+.card.donation {
+  min-width: 200px;
+  margin-bottom: 0.5rem; }
