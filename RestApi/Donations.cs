@@ -26,21 +26,21 @@ namespace RestApi
     public class Donations
     {
 
-        private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
-        {
-            string cacheConnection = Environment.GetEnvironmentVariable("RedisConnection");
-            return ConnectionMultiplexer.Connect(cacheConnection);
-        });
+        //private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
+        //{
+        //    string cacheConnection = Environment.GetEnvironmentVariable("RedisConnection");
+        //    return ConnectionMultiplexer.Connect(cacheConnection);
+        //});
 
-        public static ConnectionMultiplexer Connection
-        {
-            get
-            {
-                return lazyConnection.Value;
-            }
-        }
+        //public static ConnectionMultiplexer Connection
+        //{
+        //    get
+        //    {
+        //        return lazyConnection.Value;
+        //    }
+        //}
 
-        public static IDatabase Database => Connection.GetDatabase();
+      //  public static IDatabase Database => Connection.GetDatabase();
 
         [FunctionName("Donations_Summary")]
         public async Task<IActionResult> Summary(
@@ -51,7 +51,7 @@ namespace RestApi
             var currentData = "";
 
 #if !DEBUG
-            currentData = (string)Database.StringGet("CachedSummary");
+         //   currentData = (string)Database.StringGet("CachedSummary");
 #endif
 
             DonationSummaryDto dto = null;
@@ -59,7 +59,7 @@ namespace RestApi
             if (currentData.IsNullOrWhiteSpace()) {
                 dto = await GetFreshSummary();
 #if !DEBUG
-                Database.StringSet("CachedSummary", JsonConvert.SerializeObject(dto), new TimeSpan(0, 5, 0));
+           //     Database.StringSet("CachedSummary", JsonConvert.SerializeObject(dto), new TimeSpan(0, 5, 0));
 #endif
             }else {
                 dto = JsonConvert.DeserializeObject<DonationSummaryDto>(currentData);
@@ -72,17 +72,19 @@ namespace RestApi
         private async Task<DonationSummaryDto> GetFreshSummary()
         {
             var eventApi = new EventBriteApi();
-            var donationsT = eventApi.Orders();
+           // var donationsT = eventApi.Orders();
             var summaryT = eventApi.Summary();
 
-            await Task.WhenAll(donationsT, summaryT);
+            await Task.WhenAll(
+                //donationsT,
+                summaryT);
             var summary = summaryT.Result;
 
             return new DonationSummaryDto()
             {
                 Count = summary.Count,
                 Total = summary.Total,
-                LatestDonations = donationsT.Result.ToDto()
+                //LatestDonations = donationsT.Result.ToDto()
             };
         }
 
