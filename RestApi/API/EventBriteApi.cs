@@ -36,7 +36,7 @@ namespace RestApi.API
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             
-            var req = await Client.GetAsync("events/137912330493/orders?token=QRI4ZMQ6EQYRBT2XKG7O&expand=attendees");
+            var req = await Client.GetAsync($"events/137912330493/orders?token={Environment.GetEnvironmentVariable("EventBriteApiKey")}&expand=attendees");
 
             req.EnsureSuccessStatusCode();
 
