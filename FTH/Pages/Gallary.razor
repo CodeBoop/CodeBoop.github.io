@@ -1,0 +1,91 @@
+﻿
+@page "/Gallery"
+@using FTH.Code
+
+
+
+
+
+<CardDeck>
+    @foreach (var card in Images)
+    {
+        <Card class="image-card">
+            <CardBody>
+                <CardImage Source="@card.ImageUrl" Alt="@("Image from "+card.Name)" />
+            </CardBody>
+            <CardFooter>
+                <div>
+                Thanks to @card.Name
+                </div>
+                <div style="max-width: 200px; margin: auto;">
+                <Button To="@card.CreditUrl" Type="ButtonType.Link" Color="Color.Primary" Block="true">See more</Button>
+                </div>
+            </CardFooter>
+        </Card>
+    }
+</CardDeck>
+
+
+
+
+
+@code
+{
+
+    private static IEnumerable<ImageCard> Images = new[]
+    {
+
+        new ImageCard()
+        {
+            CreditUrl = "https://www.instagram.com/vienuolis_bajoris_rojus/",
+            ImageUrl = "https://scontent-lhr8-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/138751425_2943264349226642_67593107925636732_n.jpg?_nc_ht=scontent-lhr8-2.cdninstagram.com&_nc_cat=102&_nc_ohc=2okR76YmqloAX_EBx7C&tp=1&oh=bd5cffaa57d17c6402c84cba1c6eaef5&oe=604DD518",
+            Name = "@vienuolis_bajoris_rojus"
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/137605600_415605152886912_963065149566115234_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=100&_nc_ohc=DIXZ5YcQ1lEAX9vm79x&tp=1&oh=69a24943387238afe1e84dfd955f1fd6&oe=604DEA43",
+            CreditUrl = "https://www.instagram.com/vienuolis_bajoris_rojus/",
+            Name="@vienuolis_bajoris_rojus",
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-2.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/139748099_4903620723046261_9112986289418049957_n.jpg?_nc_ht=scontent-lhr8-2.cdninstagram.com&_nc_cat=101&_nc_ohc=ol3aoEHn_coAX9COyp2&tp=1&oh=51a06f1f9e8dc0afadf5ea025f23d81a&oe=604CDF5F",
+            CreditUrl = "https://www.instagram.com/megusaart/",
+            Name="@megusaart/",
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lht6-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/141614946_110730634321503_7422312608304380689_n.jpg?_nc_ht=scontent-lht6-1.cdninstagram.com&_nc_cat=103&_nc_ohc=pOcC9fOArUQAX9GcXMW&tp=1&oh=cf9b3bdb1c6f241ddcb2cf2fa5f7d2c5&oe=604A5F22",
+            CreditUrl = "https://www.instagram.com/decay.jpg/",
+            Name="@decay.jpg",
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-2.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/140816394_114655033901680_8739085387172298777_n.jpg?_nc_ht=scontent-lhr8-2.cdninstagram.com&_nc_cat=104&_nc_ohc=CuHwPq2A4uIAX_aPiuO&tp=1&oh=244240792768f2cf452ed0dccb4cffd3&oe=604D150E",
+            CreditUrl = "https://www.instagram.com/theforbiddencelt/",
+            Name="@theforbiddencelt",
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/139595652_2825689787647248_7380982119054655655_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=100&_nc_ohc=Wbw2vFIdgoQAX8nHRje&tp=1&oh=de743cb95db78bd559a67ed7a45f4a92&oe=604C14C5",
+            CreditUrl = "https://www.instagram.com/faegir_dariusson/",
+            Name="@faegir_dariusson",
+        },
+        
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-2.xx.fbcdn.net/v/t1.0-9/143836261_3803938959670744_1700341519525420274_n.jpg?_nc_cat=102&ccb=3&_nc_sid=730e14&_nc_ohc=tTHFdnd8TyYAX9SoH4L&_nc_ht=scontent-lhr8-2.xx&oh=4dadf49fd0bc098013df9fa40fce03ad&oe=604833C1",
+            CreditUrl = "https://www.facebook.com/233011750096834",
+            Name="Tal Dibner Historic Art",
+        },
+        new ImageCard()
+        {
+            ImageUrl = "https://scontent-lhr8-1.xx.fbcdn.net/v/t1.0-9/139716456_106294958107863_8357862693134835692_n.jpg?_nc_cat=107&ccb=3&_nc_sid=0debeb&_nc_ohc=inlfJ92lmvgAX-yKEQV&_nc_ht=scontent-lhr8-1.xx&oh=b97d97fad882fc2d60fc6454cf8e6142&oe=6049200A",
+            Name="Jade Jones",
+        },
+
+    };
+
+
+
+}

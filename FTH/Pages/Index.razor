@@ -5,64 +5,55 @@
 @using FTH.Code
 
 <Jumbotron Margin="Margin.Is4.FromBottom.Is4.FromTop">
-    <JumbotronTitle Size="JumbotronTitleSize.Is4">#FightForTheHomeless</JumbotronTitle>
+    <JumbotronTitle Size="JumbotronTitleSize.Is4">Fight for the Homeless</JumbotronTitle>
     <JumbotronSubtitle>
-        Two foolish medieval internet memes are about to do battle!
+        Two well-known reenactors duke it out in an unscripted medieval combat to raise money for their favourite homeless charities.
     </JumbotronSubtitle>
     <Divider></Divider>
     <Paragraph>
-        On the 28th March (subject to change) the Anvil of hereford, famed for his powerful shield-equipped left hook and his shout "tell me how the grass tastes, little man!". Will duel Goatworn Armband, famed for his salty internet comics and hitting that man with a folding chair that one time.
+        On 28th March, two “internet-famous” reenactors will duke it out on a field in Hereford; using authentic medieval armour and steel weapons to duel each other in an unscripted combat. This means that every blow, parry and block will be real; that no one will pull any punches, and people who view the event will get to see two well-trained combatants obliterating each other in a relentless melee; using period-accurate techniques to pummel each other into submission.
     </Paragraph>
     <Paragraph>
-        They are fighting, not for their own egos (entirely) but for a good cause! Each has selected a homeless charity for which they choose to fight.
+        Tickets to watch the fight can be bought <Link To="EventBrite">HERE</Link> and all proceeds go to homeless charities chosen by the combatants.
     </Paragraph>
     <Paragraph>
-        Should you wish to buy a ticket by clicking the <Link To="EventBrite" >Donate</Link> button below then all the money received will be split evenly between these two charities.
+        If you have any questions, please message one of the organisers on our <Link To="https://www.facebook.com/Anvil-vs-Goatworn-Fight-for-the-Homeless-103277498409609/">Facebook</Link>  or <Link To="https://www.instagram.com/fightforthehomelessttps://www.instagram.com/fightforthehomeless/">Instagram pages</Link>.
     </Paragraph>
     <Paragraph>
-            The fight will be competitive, it will be fought with steel, blunted weapons and with no predetermined outcome.
-    </Paragraph>
-    <Paragraph>
-            The fight will be filmed and aired online to all those with tickets.
-    </Paragraph>
-        <Paragraph>
-            If you have any questions, please message one of the organisers on our <Link To="https://www.facebook.com/Anvil-vs-Goatworn-Fight-for-the-Homeless-103277498409609/">Facebook</Link>  or <Link To="https://www.instagram.com/fightforthehomelessttps://www.instagram.com/fightforthehomeless/">Instagram pages</Link>.
-        </Paragraph>
-    <Paragraph>
-            Thank you for your contribution and thank you for helping us #FightForTheHomeless
+        Thank you for your contribution and thank you for helping us #FightForTheHomeless
     </Paragraph>
     <Paragraph>
         <div class="flex-buttons">
-        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
-                To="https://www.facebook.com/Anvil-vs-Goatworn-Fight-for-the-Homeless-103277498409609/">
-            <i class="fab fa-facebook-f"></i>
-            Find our page #FightForTheHomeless
-        </Button>
+            <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
+                    To="https://www.facebook.com/Anvil-vs-Goatworn-Fight-for-the-Homeless-103277498409609/">
+                <i class="fab fa-facebook-f"></i>
+                Find our page #FightForTheHomeless
+            </Button>
         </div>
         @*<div class="flex-buttons">
-        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="twitter-hashtag-button"
-                To="https://twitter.com/hashtag/FightForTheHomeless">
-            <i class="fab fa-twitter"></i>
-            Tweet #FightForTheHomeless
-        </Button>
-        <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
-                To="https://www.facebook.com/hashtag/fightforthehomeless">
-            <i class="fab fa-facebook-f"></i>
-            Facebook #FightForTheHomeless
-        </Button>
-        </div>*@
-</Paragraph>
+            <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="twitter-hashtag-button"
+                    To="https://twitter.com/hashtag/FightForTheHomeless">
+                <i class="fab fa-twitter"></i>
+                Tweet #FightForTheHomeless
+            </Button>
+            <Button Type="ButtonType.Link" Color="Color.Primary" Target="Target.Blank" Block="true" class="facebook-hashtag-button"
+                    To="https://www.facebook.com/hashtag/fightforthehomeless">
+                <i class="fab fa-facebook-f"></i>
+                Facebook #FightForTheHomeless
+            </Button>
+            </div>*@
+    </Paragraph>
 </Jumbotron>
 
-   @if (Donations != null)
-   {
-       <CardDeck Margin="Margin.Is4.FromBottom">
-            <Counter From="0" To="@Donations.Count" Title="Donations" Start="@(Donations.Count!=0)"/>
-            <Counter From="0" To="@Donations.Total" Title="Raised" Format="£#0.00"  Start="@(Donations.Count!=0)" />
-        </CardDeck>
-   }
+@if (Donations != null)
+{
+    <CardDeck Margin="Margin.Is4.FromBottom">
+        <Counter From="0" To="@Donations.Count" Title="Donations" Start="@(Donations.Count!=0)" />
+        <Counter From="0" To="@Donations.Total" Title="Raised" Format="£#0.00" Start="@(Donations.Count!=0)" />
+    </CardDeck>
+}
 
-<CardDeck  Margin="Margin.Is4.FromBottom">
+<CardDeck Margin="Margin.Is4.FromBottom">
     <AnvilCard />
     <GoatwornCard />
 </CardDeck>
@@ -77,6 +68,48 @@
     }
 
 </CardDeck>
+
+
+<Jumbotron Margin="Margin.Is4.FromBottom.Is4.FromTop">
+    <Paragraph>
+        The event will be filmed by a local director using professional cameras/drones, and the footage will be uploaded HERE. You can buy tickets to download and watch the footage, making the event Covid-compliant no matter what your nations laws may be.
+    </Paragraph>
+    <Paragraph>
+        The pandemic has had a profound impact on homeless people, “for the terrible year that 2020 was for many of us, we had homes to stay in and knowledge of enough food to get by, these people didn't”.
+    </Paragraph>
+    <Paragraph>
+        Our aim to alleviate their suffering and bring attention to their plight by hosting an event that’ll appeal to any (and all) members of the public: An authentic medieval duel, watchable from the comfort of your living room, where all proceeds are donated to a good cause.
+    </Paragraph>
+    <Paragraph>
+        Who are we donating too? 50% of the proceeds will go to St George’s Crypt; a homeless charity that provides beds, counselling and support for people who are forced to sleep rough.
+    </Paragraph>
+    <Paragraph>
+        The other 50% of the proceeds will go to Path Devon; a similar charity that offers beds and support to homeless people.
+    </Paragraph>
+    <Paragraph>
+        Head over to our CHARITIES TAB to learn more about each one.
+    </Paragraph>
+    <Paragraph>
+        This isn’t the chaotic brawl you might be expecting. The duel will be broken up into 5 one-minute rounds, and each round will be scored according to a well-established, points-based system based on the separate fighting styles each combatant is trained in.
+    </Paragraph>
+    <Paragraph>
+        Combatants gain points based on killshots, although they can also win by knockout or submission. These are unscripted duels with no predetermined outcome and there will be a trained referee to adjudicate.
+    </Paragraph>
+    <Paragraph>
+        If you want to help out more than just buying a ticket, feel free to get involved, any publicity you can help us with helps us massively.
+    </Paragraph>
+    <Paragraph>
+        Simply sharing the link to friends or on social media will help us spread the word.
+    </Paragraph>
+    <Paragraph>
+        Some have even been generous in using their artistic talent to help notify their friends, family and fans.
+    </Paragraph>
+    <Paragraph>
+        If you wish to dome thing similar then feel free to use the pictures of the fighters in the gallery as well to help you. Don't forget to tag us and add #fightforthehomeless
+    </Paragraph>
+</Jumbotron>
+
+
 
 @code
 {

@@ -57,3 +57,7 @@
 .card.donation {
   min-width: 200px;
   margin-bottom: 0.5rem; }
+
+.image-card {
+  min-width: 300px;
+  margin: 0.5rem; }
