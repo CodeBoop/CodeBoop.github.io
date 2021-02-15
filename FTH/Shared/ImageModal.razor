@@ -1,0 +1,45 @@
+﻿@using FTH.Code
+<Modal @ref="ModalRef" Closing="Hide">
+    <ModalBackdrop/>
+    <ModalContent Size="ModalSize.ExtraLarge" class="image-modal">
+        <ModalBody>
+            <img width="100%" src="@Image.ImageUrl" alt="@("Image from "+Image.Name)"/>
+        </ModalBody>
+        <ModalBody class="align-center">
+            Thanks to @Image.Name
+        </ModalBody><ModalFooter>
+            <Container>
+                <Row>
+                    <Column ColumnSize="ColumnSize.Is6.OnTablet.Is12.OnMobile">
+                        <Button Color="Color.Primary" Outline="true" Clicked="(() => ModalRef.Hide())" Block="true">Close</Button>
+                    </Column>
+                    <Column ColumnSize="ColumnSize.Is6.OnTablet.Is12.OnMobile">
+                        <Button Color="Color.Primary" Type="ButtonType.Link" To="@Image.CreditUrl" Block="true" Disabled="@(Image.CreditUrl.IsNullOrWhiteSpace())" Clicked="(() => ModalRef.Hide())">See More</Button>
+                    </Column>
+                </Row>
+            </Container>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+
+
+@code
+{
+    private Modal ModalRef { get; set; }
+    private ImageCard Image { get; set; } = new ImageCard();
+
+
+    public void Show(ImageCard img)
+    {
+        Image = img;
+        ModalRef.Show();
+        StateHasChanged();
+    }
+
+    private void Hide(ModalClosingEventArgs args)
+    {
+        Image = new ImageCard();
+    }
+
+}
