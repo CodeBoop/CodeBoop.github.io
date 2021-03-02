@@ -1,0 +1,49 @@
+﻿@page "/Rules"
+
+
+
+<Jumbotron Margin="Margin.Is4.FromBottom.Is4.FromTop">
+
+    <JumbotronTitle>The Rules</JumbotronTitle>
+
+    <ol>
+        @foreach (var rule in TheRules)
+        {
+            <li>
+                <Paragraph>
+                    @rule
+                </Paragraph>
+            </li>
+        }
+    </ol>
+
+</Jumbotron>
+
+
+@code
+{
+
+
+    private IEnumerable<string> TheRules { get; } = new[]
+    {
+        "All weaponry used will be suitably blunted to avoid accidental lethal damage.",
+        "All combatants must surrender weaponry to inspection prior to combat.",
+        "An impartial referee will preside over the combat.",
+        "Combat will be separated into 5 single minute rounds.",
+        "Points will be scored per round on a basis of “kill shots” delivered with intent to the opponent's body.",
+        "Rounds may also be won by knockout or submission or by referee decision of an overwhelming attack being landed. Examples for this may include a disarming followed up by a restraint or presenting of blade to vital area.",
+        "“kill shots” include a slash to the neck or spine, a stab to the chest, abdomen or back.",
+        "Weapon hits to the spine, neck, feet or fingers are not be be done at full force and will incur a penalty if done so.",
+        "Head shots are fully allowed but stabs to the face or throat are strictly banned and will incur the loss of the round if done.",
+        "A disarm is not a strict loss as weapons can potentially be recovered in time, secondary weapons may be used and unarmed combat and offhand shield attacks are also permitted.",
+        "Shield strikes are permitted, but if attacking with the rim of the shield then it will be counted as a “weapon hit” and thus fall under the same rule set.",
+        "Referee decision is final but may choose to change decision based upon camera evidence.",
+        @"Failure to obey the referee or threats to the referee will result in either points being deducted for the most recent round or the referee getting a free shot on the offending party with a mace.
+        The commentators will also be allowed to a maximum of one brick to throw at a moment of their choosing during the next round.",
+        "The throwing of weapons (including parts of weapons) is strictly prohibited as the safety of non-combatants cannot be guaranteed.",
+        "Grounded opponents cannot be struck with a weapon, but may be held, grappled, or held at weapon point to demand a surrender.",
+        "In the event of a tie, fighters will compete in roshambo and the looser is the first to have a descendant travel back in time to plead for mercy.",
+    };
+
+
+}
