@@ -36,16 +36,14 @@ namespace FTH
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri($"{rootUrl}/api/") });
 
 
-
             builder.Services.AddScoped<DonationApi>();
-
 
             var host = builder.Build();
 
             host.Services
                 .UseBootstrapProviders()
                 .UseFontAwesomeIcons();
-
+            
             await host.RunAsync();
         }
     }
