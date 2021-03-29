@@ -17,9 +17,13 @@
                 <div>
                     Thanks to @card.Name
                 </div>
-                <div style="max-width: 200px; margin: auto;">
-                    <Button To="@card.CreditUrl" Type="ButtonType.Link" Color="Color.Primary" Block="true">See more</Button>
-                </div>
+                @if (!card.CreditUrl.IsNullOrWhiteSpace())
+                {
+                    <div style="max-width: 200px; margin: auto;">
+                        <Button To="@card.CreditUrl" Type="ButtonType.Link" Color="Color.Primary" Block="true">See more</Button>
+                    </div>
+                }
+                
             </CardFooter>
         </Card>
     }
@@ -127,8 +131,10 @@
             CreditUrl="https://www.instagram.com/__magoa__/",
             Name="@__magoa__",
         },
+        new ImageCard()
+        {
+            ImageUrl = "/Images/165843202_470779754048447_3379246174134256838_n.jpg",
+            Name="Logan",
+        },
     };
-
-
-
 }
