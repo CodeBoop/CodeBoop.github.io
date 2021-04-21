@@ -11,7 +11,7 @@
         </BarLink>
         </BarItem>
     </BarBrand>
-    <BarToggler />
+    <BarToggler  />
     <BarMenu>
         <BarStart>
             <BarItem>
@@ -44,10 +44,18 @@
                 </BarLink>
             </BarItem>
             <BarItem>
-            <BarLink To="/Trailer">
-                Trailer
-            </BarLink>
-        </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle>Videos</BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/Trailer">Trailer</BarDropdownItem>
+                            <BarDropdownItem To="Appeal">An Urgent Appeal</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+                
+            </BarItem>
 
         </BarStart>
     </BarMenu>
