@@ -133,14 +133,7 @@
     [Inject] private IJSRuntime JsRuntime { get; set; }
     [Inject] public DonationApi DonationApi { get; set; }
 
-    private DonationSummaryDto Donations { get; set; } = new DonationSummaryDto();
-
-
-    protected override Task OnInitializedAsync()
-    {
-        return DonationApi.Summary().Set(() => Donations);
-    }
-
+    private DonationSummaryDto Donations { get; set; } = new () { Count = 184, Total = 2342.02m };
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
